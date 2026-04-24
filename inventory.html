@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Total Inventory</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="heading">Total Inventory</div>
+
+<button id="addBtn">+ Add Inventory</button>
+<table id="inventoryTable">
+    <tr>
+        <th>ID</th>
+        <th>Item</th>
+        <th>Category</th>
+        <th>Model</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<!-- FORM POPUP -->
+<div id="formBox">
+    <h3>Add Inventory</h3>
+
+    <input id="item" placeholder="Item Name">
+    <input id="category" placeholder="Category">
+    <input id="model" placeholder="Model">
+    <input id="qty" type="number" placeholder="Quantity">
+
+    <button id="submit">Add</button>
+    <button id="cancel">Cancel</button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
