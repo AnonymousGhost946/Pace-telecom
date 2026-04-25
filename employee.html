@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ISP Inventory System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    background: #0b0b0b;
+    color: white;
+    padding: 20px;
+}
+
+/* HEADER */
+.heading {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #38bdf8;
+}
+
+/* BUTTON */
+#addBtn {
+    background: #38bdf8;
+    border: none;
+    padding: 10px 18px;
+    color: black;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 10px 0;
+    transition: 0.3s;
+}
+
+#addBtn:hover {
+    transform: scale(1.05);
+}
+
+/* SEARCH */
+#search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: none;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111;
+}
+
+th, td {
+    border: 1px solid #222;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background: #38bdf8;
+    color: black;
+}
+
+/* FORM */
+#formBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    width: 320px;
+    border: 1px solid #333;
+}
+
+#formBox input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+#formBox button {
+    width: 48%;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+#submit {
+    background: #38bdf8;
+    color: black;
+}
+
+#cancel {
+    background: #444;
+    color: white;
+}
+
+/* DELETE */
+.delBtn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 768px) {
+    table {
+        font-size: 10px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="heading">Pace Telecom Inventory</div>
+
+<button id="addBtn">+ Add Inventory</button>
+
+<input type="text" id="search" placeholder="Search by technician or area...">
+
+<table id="table">
+    <tr>
+        <th>ID</th>
+        <th>Technician</th>
+        <th>Model</th>
+        <th>Charger</th>
+        <th>4C</th>
+        <th>2C</th>
+        <th>1C</th>
+        <th>Area</th>
+        <th>Splitter</th>
+        <th>ATP</th>
+        <th>Box</th>
+        <th>Issue</th>
+        <th>Amount</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<!-- FORM -->
+<div id="formBox">
+
+    <input id="tech" placeholder="Technician">
+    <input id="model" placeholder="Model">
+    <input id="charger" placeholder="Charger">
+
+    <input id="core4" placeholder="4 Core">
+    <input id="core2" placeholder="2 Core">
+    <input id="core1" placeholder="1 Core">
+
+    <input id="area" placeholder="Area">
+
+    <input id="splitter" placeholder="Splitter">
+    <input id="atp" placeholder="ATP Box">
+    <input id="box" placeholder="Black Box">
+
+    <input id="issue" placeholder="Issue / Change">
+    <input id="amount" type="number" placeholder="Amount">
+
+    <button id="submit">Add</button>
+    <button id="cancel">Cancel</button>
+</div>
+
+<script>
+
+let table = document.getElementById("table");
+let formBox = document.getElementById("formBox");
+let addBtn = document.getElementById("addBtn");
+let cancelBtn = document.getElementById("cancel");
+let submitBtn = document.getElementById("submit");
+let search = document.getElementById("search");
+
+let idCounter = 1;
+
+let dataList = JSON.parse(localStorage.getItem("inventory")) || [];
+
+load();
+
+addBtn.onclick = () => formBox.style.display = "block";
+cancelBtn.onclick = () => {
+    formBox.style.display = "none";
+    clear();
+};
+
+submitBtn.onclick = () => {
+
+    let data = {
+        id: idCounter++,
+        tech: tech.value,
+        model: model.value,
+        charger: charger.value,
+        c4: core4.value,
+        c2: core2.value,
+        c1: core1.value,
+        area: area.value,
+        splitter: splitter.value,
+        atp: atp.value,
+        box: box.value,
+        issue: issue.value,
+        amount: amount.value
+    };
+
+    dataList.push(data);
+    localStorage.setItem("inventory", JSON.stringify(dataList));
+
+    addRow(data);
+
+    formBox.style.display = "none";
+    clear();
+};
+
+function addRow(d) {
+
+    let row = table.insertRow();
+
+    row.innerHTML = `
+        <td>${d.id}</td>
+        <td>${d.tech}</td>
+        <td>${d.model}</td>
+        <td>${d.charger}</td>
+        <td>${d.c4}</td>
+        <td>${d.c2}</td>
+        <td>${d.c1}</td>
+        <td>${d.area}</td>
+        <td>${d.splitter}</td>
+        <td>${d.atp}</td>
+        <td>${d.box}</td>
+        <td>${d.issue}</td>
+        <td>${d.amount}</td>
+        <td><button class="delBtn" onclick="del(${d.id})">X</button></td>
+    `;
+}
+
+function load() {
+    dataList.forEach(d => {
+        addRow(d);
+        idCounter = d.id + 1;
+    });
+}
+
+function del(id) {
+
+    dataList = dataList.filter(d => d.id !== id);
+    localStorage.setItem("inventory", JSON.stringify(dataList));
+    location.reload();
+}
+
+function clear() {
+    tech.value = "";
+    model.value = "";
+    charger.value = "";
+    core4.value = "";
+    core2.value = "";
+    core1.value = "";
+    area.value = "";
+    splitter.value = "";
+    atp.value = "";
+    box.value = "";
+    issue.value = "";
+    amount.value = "";
+}
+
+/* SEARCH */
+search.addEventListener("keyup", function () {
+    let value = this.value.toLowerCase();
+
+    let rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+        let row = rows[i];
+        row.style.display =
+            row.innerText.toLowerCase().includes(value)
+                ? ""
+                : "none";
+    }
+});
+
+</script>
+
+</body>
+</html>
