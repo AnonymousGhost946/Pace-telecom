@@ -1,32 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Portfolio</title>
-    
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pace Telecom</title>
+
 <style>
-    *{
-        box-sizing: border-box;
-        margin: 0%;
-        padding: 0%;
-        text-decoration: none;
-        height: 100%;
-        width: 100%;
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* BACKGROUND */
+body {
+    background: #0a0a0a;
+    color: white;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: #000;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+/* underline animation */
+nav ul li a::after {
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: #38bdf8;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* HERO */
+.hero {
+    height: 90vh;
+    background: url("https://images.unsplash.com/photo-1551703599-6b3e8379aa8c") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* dark overlay */
+.hero::before {
+    content: "";
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.7);
+}
+
+.hero h1 {
+    font-size: 55px;
+    z-index: 1;
+    animation: fadeUp 1s ease;
+}
+
+.hero p {
+    margin-top: 10px;
+    z-index: 1;
+    opacity: 0.8;
+    animation: fadeUp 1.2s ease;
+}
+
+/* BUTTON ANIMATION */
+.hero button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: 1px solid #38bdf8;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    z-index: 1;
+    transition: 0.3s;
+    animation: fadeUp 1.4s ease;
+}
+
+.hero button:hover {
+    background: #38bdf8;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* SECTIONS */
+section {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    width: 300px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #38bdf8;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card h3 {
+    margin: 10px 0;
+}
+
+.card p {
+    padding: 0 10px 15px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ABOUT */
+.about {
+    background: #0f0f0f;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* CONTACT */
+.contact {
+    background: #000;
+}
+
+.contact p {
+    max-width: 700px;
+    margin: auto;
+    opacity: 0.8;
+}
+
+/* SOCIAL BUTTONS */
+.socials {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.socials a {
+    padding: 10px 15px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.socials a:hover {
+    background: #38bdf8;
+    color: black;
+}
+
+/* FOOTER */
+footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #222;
+    background: #000;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    .container{
-        background-color: black;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    .heading{
-        color: white;
-        font-size: 40px;    
-        text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 30px;
     }
+
+    nav ul {
+        flex-direction: column;
+    }
+}
+
 </style>
+
+</head>
+
 <body>
-    <div class="container">
-        <div class="heading">Pace Telecom</div>
+
+<!-- NAV -->
+<nav>
+    <div class="logo">Pace<span>Telecom</span></div>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Next-Gen Fiber Network</h1>
+    <p>Reliable | Fast | Secure ISP Solutions</p>
+    <button>Connect Now</button>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+    <h2>Our Services</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31">
+            <h3>Fiber Internet</h3>
+            <p>Ultra-fast fiber connectivity for homes and enterprises.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581091870620-1e7c0b6d3a5d">
+            <h3>Field Networking Team</h3>
+            <p>Our technicians actively deploy and maintain networks in the field.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d">
+            <h3>24/7 Support</h3>
+            <p>Fast issue resolution within 24 hours for all customers.</p>
+        </div>
+
     </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+    <h2>About Pace Telecom</h2>
+    <p>
+        We are a professional ISP company focused on delivering high-speed fiber internet and stable network solutions.
+        Our mission is simple: keep your connection fast, stable, and reliable.  
+        We guarantee issue resolution within 24 hours with dedicated technical teams working across the field.
+    </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+    <h2>Contact Us</h2>
+
+    <p>Connect with us instantly through our social platforms</p>
+
+    <div class="socials">
+        <a href="#">Facebook</a>
+        <a href="#">WhatsApp</a>
+        <a href="#">Instagram</a>
+        <a href="#">Email</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 Pace Telecom | Built with modern network design
+</footer>
+
 </body>
 </html>
